@@ -1,0 +1,78 @@
+﻿name: Deploy Apps Script (UAT01)
+
+on:
+  push:
+    branches: [ uat01 ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SCRIPT_ID: ${{ secrets.SCRIPT_ID }}
+      CLASP_ROOT: ${{ secrets.CLASP_ROOT }}
+      DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install clasp
+        run: npm i -g @google/clasp
+
+      - name: Write SA JSON
+        run: echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > ${HOME}/sa.json
+
+      - name: Login clasp
+        working-directory: ${{ env.CLASP_ROOT || '.' }}
+        run: clasp login --creds ${HOME}/sa.json
+
+      - name: Ensure .clasp.json
+        working-directory: ${{ env.CLASP_ROOT || '.' }}
+        run: |
+          if [ -z "$SCRIPT_ID" ]; then echo "Missing SCRIPT_ID"; exit 1; fi
+          ROOTDIR="."
+          [ -d "src" ] && ROOTDIR="src"
+          cat > .clasp.json <<EOF
+          {
+            "scriptId": "${SCRIPT_ID}",
+            "rootDir": "${ROOTDIR}"
+          }
+          EOF
+          cat .clasp.json
+
+      - name: Install deps
+        run: npm ci || npm i
+
+      - name: Build (if any)
+        run: npm run build || echo "No build step"
+
+      - name: Push to Apps Script
+        working-directory: ${{ env.CLASP_ROOT || '.' }}
+        run: clasp push -f
+
+      - name: Create version
+        id: version
+        working-directory: ${{ env.CLASP_ROOT || '.' }}
+        run: |
+          MSG="CI $(date -u +'%Y-%m-%dT%H:%M:%SZ') #${{ github.sha }}"
+          OUT=$(clasp version "$MSG" | tee /dev/stderr)
+          NUM=$(echo "$OUT" | grep -Eo '[0-9]+' | tail -1)
+          [ -z "$NUM" ] && { echo "No version parsed"; exit 1; }
+          echo "version=$NUM" >> $GITHUB_OUTPUT
+
+      - name: Deploy (create new)
+        if: ${{ env.DEPLOYMENT_ID == '' }}
+        working-directory: ${{ env.CLASP_ROOT || '.' }}
+        run: |
+          DESC="UAT auto $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          clasp deploy --description "$DESC"
+
+      - name: Deploy (update existing)
+        if: ${{ env.DEPLOYMENT_ID != '' }}
+        working-directory: ${{ env.CLASP_ROOT || '.' }}
+        run: clasp deploy --deploymentId "${{ env.DEPLOYMENT_ID }}" --versionNumber "${{ steps.version.outputs.version }}"
