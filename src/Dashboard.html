@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trung tâm Thiền &amp; Học liệu</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --surface: #ffffff;
+        --text: #0f172a;
+        --muted: #475569;
+        --primary: #0f172a;
+        --accent: #2563eb;
+        --radius-lg: 24px;
+        --radius-md: 16px;
+        --shadow-lg: 0 20px 45px rgba(15, 23, 42, 0.08);
+        --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.05);
+        font-family: "Inter", "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .page {
+        max-width: 1100px;
+        margin: 48px auto;
+        padding: 0 24px 56px;
+      }
+
+      .hero {
+        background: var(--surface);
+        border-radius: var(--radius-lg);
+        padding: 40px 48px;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .hero h1 {
+        margin: 0 0 12px;
+        font-size: 32px;
+        line-height: 1.25;
+      }
+
+      .hero p {
+        margin: 0 0 32px;
+        color: var(--muted);
+        max-width: 640px;
+        font-size: 18px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 999px;
+        font-weight: 600;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .btn-secondary {
+        background: #fff;
+        color: var(--primary);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+      }
+
+      .grid {
+        margin-top: 32px;
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .card {
+        background: var(--surface);
+        border-radius: var(--radius-md);
+        padding: 24px 24px 28px;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        background: rgba(37, 99, 235, 0.12);
+        color: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .card-title {
+        font-size: 18px;
+        margin: 0;
+      }
+
+      .card-body {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.6;
+        flex: 1;
+      }
+
+      .card-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .pill {
+        background: #0f172a;
+        color: #fff;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 16px;
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding: 32px;
+        }
+
+        .hero h1 {
+          font-size: 26px;
+        }
+
+        .hero p {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <h1>Trung tâm Thiền &amp; Học liệu – Bảng điều khiển nhanh</h1>
+        <p>
+          Tạo lớp, mở form đăng ký, theo dõi học viên và điểm danh — tất cả trong một trang.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#" data-action="create-class">Tạo lớp học</a>
+          <a class="btn btn-secondary" href="#" data-action="view-current">Xem lớp hiện tại</a>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Điều hướng nhanh">
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">🎓</span>
+            <h2 class="card-title">Tạo lớp học</h2>
+          </div>
+          <p class="card-body">
+            Tạo mới một lớp: tên lớp, mô tả, thời gian, địa điểm, học phí, số lượng tối đa, liên kết tải liệu.
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-create-class">Mở</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">🧘</span>
+            <h2 class="card-title">Tạo form lớp NLCD</h2>
+          </div>
+          <p class="card-body">
+            Form đăng ký lớp Năng Lượng Căn Bản/Định (NLCD): thông tin cá nhân, câu hỏi sàng lọc, điều khoản.
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-form-nlcd">Mở</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">📄</span>
+            <h2 class="card-title">Tạo form lớp CBK</h2>
+          </div>
+          <p class="card-body">
+            Form đăng ký Cơ Bản Khai (CBK): nhập liệu chuẩn hóa, gửi email/Zalo OA thông báo cho admin.
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-form-cbk">Mở</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">📋</span>
+            <h2 class="card-title">Tạo form lớp NC</h2>
+          </div>
+          <p class="card-body">
+            Form đăng ký Nâng Cao (NC): yêu cầu đã hoàn thành CBK, tải chứng nhận (tuỳ chọn).
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-form-nc">Mở</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">🗓️</span>
+            <h2 class="card-title">Tạo form khoá thiền 1 ngày</h2>
+          </div>
+          <p class="card-body">
+            Form đăng ký theo ngày: chọn lịch, điều kiện sức khoẻ, cam kết tham dự.
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-form-1day">Mở</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">📘</span>
+            <h2 class="card-title">Tạo form khoá thiền dài ngày</h2>
+          </div>
+          <p class="card-body">
+            Form đăng ký 3–10 ngày: thông tin lưu trú, chế độ ăn, liên hệ khẩn cấp, phí đặt chỗ.
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-form-long">Mở</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">📜</span>
+            <h2 class="card-title">Danh sách học viên đã đăng ký</h2>
+          </div>
+          <p class="card-body">
+            Bảng tổng hợp theo khoá/lớp, trạng thái thanh toán, tình trạng duyệt, ghi chú.
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-registered">Mở</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">✅</span>
+            <h2 class="card-title">Điểm danh học viên</h2>
+          </div>
+          <p class="card-body">
+            Điểm danh buổi/sáng/chiều/tối; chấm lý do vắng; xuất báo cáo CSV/Sheets.
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-attendance">Mở</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="card-icon">📚</span>
+            <h2 class="card-title">Lớp học hiện tại</h2>
+          </div>
+          <p class="card-body">
+            Xem nhanh các lớp đang mở: lịch buổi, giảng viên, số ghế còn lại, link nhóm.
+          </p>
+          <div class="card-actions">
+            <a class="pill" href="#" data-action="open-current-classes">Mở</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.body.addEventListener("click", function (event) {
+          const target = event.target.closest("[data-action]");
+          if (!target) return;
+          event.preventDefault();
+          const action = target.getAttribute("data-action");
+          google.script.run.withFailureHandler(function (err) {
+            console.error("Not yet implemented", action, err);
+          }).withSuccessHandler(function () {
+            console.log("Triggered", action);
+          }).handleAction(action);
+        });
+      });
+    </script>
+  </body>
+</html>
